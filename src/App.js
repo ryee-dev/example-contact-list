@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import ContactForm from './components/ContactForm';
-import ContactList from './components/ContactList';
-import Search from './components/Search';
+import { ContactForm, ContactList, Search } from './components';
 import { Container } from 'semantic-ui-react';
 
 const SampleContacts = [

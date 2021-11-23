@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Icon, Rating } from 'semantic-ui-react';
 import styled from 'styled-components';
-import EditContactForm from '../EditContactForm';
+import { EditContactForm } from '../../components';
 
 const StyledCard = styled(Card)`
   cursor: pointer;

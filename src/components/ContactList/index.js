@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card } from 'semantic-ui-react';
-import ContactDetails from '../ContactDetails';
 import { v4 as uuidv4 } from 'uuid';
+import { ContactDetails } from '../../components';
 
 const ContactList = (props) => {
   const {
