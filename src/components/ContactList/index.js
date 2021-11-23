@@ -9,9 +9,6 @@ const ContactList = (props) => {
     showFavorites,
     searchedContacts,
     setContactList,
-    isEditing,
-    setIsEditing,
-    setSelectedContact,
     setFormVisible,
   } = props;
   const [favoritedContacts, setFavoritedContacts] = React.useState([]);
@@ -29,9 +26,6 @@ const ContactList = (props) => {
           contact={fav}
           setContactList={setContactList}
           contactList={contactList}
-          isEditing={isEditing}
-          setIsEditing={setIsEditing}
-          setSelectedContact={setSelectedContact}
           setFormVisible={setFormVisible}
         />
       )) : null}
@@ -42,9 +36,6 @@ const ContactList = (props) => {
           contact={contact}
           setContactList={setContactList}
           contactList={contactList}
-          isEditing={isEditing}
-          setIsEditing={setIsEditing}
-          setSelectedContact={setSelectedContact}
           setFormVisible={setFormVisible}
         />
       )) : null}
@@ -55,9 +46,6 @@ const ContactList = (props) => {
           contact={contact}
           setContactList={setContactList}
           contactList={contactList}
-          isEditing={isEditing}
-          setIsEditing={setIsEditing}
-          setSelectedContact={setSelectedContact}
           setFormVisible={setFormVisible}
         />
       )) : null}

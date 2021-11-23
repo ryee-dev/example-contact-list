@@ -15,7 +15,7 @@ const ButtonContainer = styled.div`
   justify-content: flex-start;
   margin: 1rem 0;
 
-  .button-margin {
+  .button-styles {
     min-width: 138px;
     margin-left: 0.4rem;
   }
@@ -57,8 +57,8 @@ const Search = (props) => {
       <ButtonContainer>
         <Button primary onClick={() => setFormVisible(true)}>Add New Contact</Button>
         {showFavorites ?
-          <Button className="button-margin" secondary onClick={() => setShowFavorites(false)}>Show All</Button> :
-          <Button className="button-margin" secondary onClick={() => setShowFavorites(true)}>Show Favorites</Button>
+          <Button className="button-styles" secondary onClick={() => setShowFavorites(false)}>Show All</Button> :
+          <Button className="button-styles" secondary onClick={() => setShowFavorites(true)}>Show Favorites</Button>
         }
       </ButtonContainer>
     </SearchWrapper>

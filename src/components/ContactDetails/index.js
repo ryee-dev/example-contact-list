@@ -1,7 +1,6 @@
 import React from 'react';
 import { Card, Icon, Rating } from 'semantic-ui-react';
 import styled from 'styled-components';
-import { EditContactForm } from '../../components';
 
 const StyledCard = styled(Card)`
   cursor: pointer;
@@ -44,18 +43,11 @@ const StyledCard = styled(Card)`
 `;
 
 const ContactDetails = (props) => {
-  const { contact, setContactList, contactList, isEditing, setIsEditing, setSelectedContact, setFormVisible } = props;
-  // const [contactDetails, setContactDetails] = React.useState(null);
+  const { contact, setContactList, contactList } = props;
   const [showDetails, setShowDetails] = React.useState(false);
   
   const handleDeleteContact = (id) => {
     setContactList(contactList.filter(contact => contact.id !== id));
-  };
-  
-  const handleEditContact = (contact) => {
-    setIsEditing(true);
-    setFormVisible(true);
-    setSelectedContact(contact);
   };
   
   return (
@@ -71,7 +63,7 @@ const ContactDetails = (props) => {
             <Card.Description>{contact.email}</Card.Description>
             <Icon.Group className="icons-wrapper">
               <Icon onClick={() => handleDeleteContact(contact.id)} className="card-icon" name="remove user" color="red" />
-              <Icon onClick={() => handleEditContact(contact)} className="card-icon" name="edit" color="orange" />
+              <Icon className="card-icon" name="edit" color="orange" />
             </Icon.Group>
           </Card.Content> :
           <Card.Content className="content" onClick={() => setShowDetails(!showDetails)}>
@@ -80,25 +72,6 @@ const ContactDetails = (props) => {
           </Card.Content>
         }
       </StyledCard>
-      {isEditing ? <EditContactForm contact={contact} /> : null}
-      
-      {/*{showDetails ?*/}
-      {/*  <StyledCard raised fluid onClick={() => setShowDetails(!showDetails)}>*/}
-      {/*    <Card.Content>*/}
-      {/*      <Card.Header>{contact.lastName}, {contact.firstName}</Card.Header>*/}
-      {/*      <Card.Meta>{contact.address}</Card.Meta>*/}
-      {/*      <Card.Meta>{contact.city}, {contact.state}, {contact.zip}</Card.Meta>*/}
-      {/*      <Card.Description>{contact.phoneNumber}</Card.Description>*/}
-      {/*      <Card.Description>{contact.email}</Card.Description>*/}
-      {/*    </Card.Content>*/}
-      {/*  </StyledCard> :*/}
-      {/*  <StyledCard fluid onClick={() => setShowDetails(!showDetails)}>*/}
-      {/*    <Card.Content>*/}
-      {/*      <Card.Header>{contact.lastName}, {contact.firstName}</Card.Header>*/}
-      {/*      <Card.Meta>{contact.city}, {contact.state}</Card.Meta>*/}
-      {/*    </Card.Content>*/}
-      {/*  </StyledCard>*/}
-      {/*}*/}
     </>
   );
 };
