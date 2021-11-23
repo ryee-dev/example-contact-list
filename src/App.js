@@ -57,6 +57,8 @@ const AppWrapper = styled(Container)`
   }
 `;
 
+// TODO: add edit contact functionality
+
 function App() {
   const [formVisible, setFormVisible] = React.useState(false);
   const [contactList, setContactList] = React.useState([...SampleContacts]);
@@ -65,18 +67,8 @@ function App() {
   const [isEditing, setIsEditing] = React.useState(false);
   const [selectedContact, setSelectedContact] = React.useState(null);
   
-  // const searchProps = {
-  //   formVisible,
-  //   setFormVisible,
-  //   showFavorites,
-  //   setShowFavorites,
-  //   searchedContacts,
-  //   setSearchedContacts,
-  // };
-  
   return (
     <AppWrapper>
-      {/*<Search {...searchProps} />*/}
       <Search
         setFormVisible={setFormVisible}
         contactList={contactList}
