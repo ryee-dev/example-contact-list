@@ -11,10 +11,11 @@ const ContactList = (props) => {
     setContactList,
     setFormVisible,
   } = props;
+  
   const [favoritedContacts, setFavoritedContacts] = React.useState([]);
   
   React.useEffect(() => {
-    let filteredContacts = contactList.filter((contact => contact.favorited));
+    const filteredContacts = contactList.filter((contact => contact.favorited));
     setFavoritedContacts(filteredContacts);
   }, [contactList, showFavorites]);
   
