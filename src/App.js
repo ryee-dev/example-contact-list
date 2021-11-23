@@ -34,6 +34,7 @@ function App() {
         setShowFavorites={setShowFavorites}
         setSearchedContacts={setSearchedContacts}
       />
+      
       {formVisible &&
       <ContactForm
         formVisible={formVisible}
@@ -42,6 +43,7 @@ function App() {
         setContactList={setContactList}
       />
       }
+      
       <ContactList
         contactList={contactList}
         setContactList={setContactList}
