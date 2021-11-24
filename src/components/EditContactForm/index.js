@@ -4,15 +4,31 @@ import { useForm } from 'react-hook-form';
 
 const EditContactForm = (props) => {
   const { formVisible, setFormVisible, contactList, setContactList, isEditing, contact } = props;
-  const { register, handleSubmit } = useForm();
-  
-  const [formData, setFormData] = React.useState(null);
+  const { register, handleSubmit } = useForm({
+    defaultValues: {
+      firstName: contact.firstName,
+      lastName: contact.lastName,
+      address: contact.address,
+      city: contact.city,
+      state: contact.state,
+      zip: contact.zip,
+      phoneNumber: contact.phoneNumber,
+      email: contact.email,
+      favorited: contact.favorited,
+    },
+  });
   
   const handleOnSubmit = (data, error) => {
-    if (isEditing) {
+    const contactId = contactList.findIndex((item) => item.id === contact.id);
+    const contactExists = contactId > -1;
     
-    } else {
-      setContactList([...contactList, data]);
+    if (contactExists) {
+      console.log('contact updated');
+      const updatedContacts = contactList.map((modified) => {
+        return modified.id === contact.id ? contact : modified;
+      });
+      setContactList(updatedContacts);
+      localStorage.setItem('contacts', JSON.stringify(updatedContacts));
     }
     
     error.target.reset();
@@ -20,10 +36,8 @@ const EditContactForm = (props) => {
   };
   
   React.useEffect(() => {
-    if (isEditing) {
-      setFormData(contact);
-    }
-  }, [isEditing, contact]);
+    console.log(contact.id);
+  }, [isEditing]);
   
   return (
     <Modal
@@ -41,7 +55,6 @@ const EditContactForm = (props) => {
               <input
                 placeholder="First Name"
                 {...register('firstName')}
-                value={isEditing && formData.firstName}
               />
             </Form.Field>
             <Form.Field>
@@ -49,7 +62,6 @@ const EditContactForm = (props) => {
               <input
                 placeholder="Last Name"
                 {...register('lastName')}
-                value={isEditing && formData.lastName}
               />
             </Form.Field>
           </Form.Group>
@@ -58,7 +70,6 @@ const EditContactForm = (props) => {
             <input
               placeholder="Address"
               {...register('address')}
-              value={isEditing && formData.address}
             />
           </Form.Field>
           <Form.Group widths="equal">
@@ -67,7 +78,6 @@ const EditContactForm = (props) => {
               <input
                 placeholder="City"
                 {...register('city')}
-                value={isEditing && formData.city}
               />
             </Form.Field>
             <Form.Field>
@@ -75,7 +85,6 @@ const EditContactForm = (props) => {
               <input
                 placeholder="State"
                 {...register('state')}
-                value={isEditing && formData.state}
               />
             </Form.Field>
             <Form.Field>
@@ -84,7 +93,6 @@ const EditContactForm = (props) => {
                 type="number"
                 placeholder="Zip"
                 {...register('zip')}
-                value={isEditing && formData.zip}
               />
             </Form.Field>
           </Form.Group>
@@ -95,7 +103,6 @@ const EditContactForm = (props) => {
                 type="tel"
                 placeholder="(000) 000-0000"
                 {...register('phoneNumber')}
-                value={isEditing && formData.phoneNumber}
               />
             </Form.Field>
             <Form.Field>
@@ -104,7 +111,6 @@ const EditContactForm = (props) => {
                 type="email"
                 placeholder="Email"
                 {...register('email')}
-                value={isEditing && formData.email}
               />
             </Form.Field>
           </Form.Group>
@@ -112,8 +118,9 @@ const EditContactForm = (props) => {
             <label htmlFor="favorited">Favorite this contact</label>
             <input
               type="checkbox"
+              name="checkbox"
+              value="favorited"
               {...register('favorited')}
-              value={isEditing && formData.favorited}
             />
           </Form.Field>
           <Button primary type="submit">Submit</Button>

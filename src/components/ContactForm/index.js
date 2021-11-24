@@ -3,7 +3,7 @@ import { Button, Form, Modal } from 'semantic-ui-react';
 import { useForm } from 'react-hook-form';
 
 const ContactForm = (props) => {
-  const { formVisible, setFormVisible, contactList, setContactList } = props;
+  const { formVisible, setFormVisible, contactList, setContactList, selectedContact, isEditing } = props;
   const { register, handleSubmit } = useForm();
   
   const handleOnSubmit = (data, error) => {

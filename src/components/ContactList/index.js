@@ -9,12 +9,29 @@ const ContactList = (props) => {
     showFavorites,
     searchedContacts,
     setContactList,
-    isEditing,
     setIsEditing,
     setSelectedContact,
     setFormVisible,
   } = props;
+  
   const [favoritedContacts, setFavoritedContacts] = React.useState([]);
+  // const [selectedContact, setSelectedContact] = React.useState(null);
+  
+  const handleDeleteContact = (id) => {
+    setContactList(contactList.filter(contact => contact.id !== id));
+  };
+  
+  const handleEditContact = (id, contact) => {
+    setIsEditing(true);
+    setFormVisible(true);
+    setSelectedContact(contact);
+    
+    // const editedContact = contactList.map(item => {
+    //   if (id === contact.id) {
+    //     return { ...item };
+    //   }
+    // });
+  };
   
   React.useEffect(() => {
     let filteredContacts = contactList.filter((contact => contact.favorited));
@@ -22,43 +39,37 @@ const ContactList = (props) => {
   }, [contactList, showFavorites]);
   
   return (
-    <Card.Group className="contact-list-wrapper" itemsPerRow={4} stackable>
+    <Card.Group className="contact-list-wrapper" itemsPerRow={3}>
       {showFavorites ? favoritedContacts.map((fav) => (
         <ContactDetails
           key={uuidv4()}
+          id={fav.id}
           contact={fav}
-          setContactList={setContactList}
-          contactList={contactList}
-          isEditing={isEditing}
-          setIsEditing={setIsEditing}
-          setSelectedContact={setSelectedContact}
-          setFormVisible={setFormVisible}
+          handleDeleteContact={handleDeleteContact}
+          handleEditContact={handleEditContact}
+          {...props}
         />
       )) : null}
       
       {searchedContacts.length !== 0 ? searchedContacts.map((contact) => (
         <ContactDetails
           key={uuidv4()}
+          id={contact.id}
           contact={contact}
-          setContactList={setContactList}
-          contactList={contactList}
-          isEditing={isEditing}
-          setIsEditing={setIsEditing}
-          setSelectedContact={setSelectedContact}
-          setFormVisible={setFormVisible}
+          handleDeleteContact={handleDeleteContact}
+          handleEditContact={handleEditContact}
+          {...props}
         />
       )) : null}
       
       {!showFavorites && searchedContacts.length === 0 ? contactList.map((contact) => (
         <ContactDetails
           key={uuidv4()}
+          id={contact.id}
           contact={contact}
-          setContactList={setContactList}
-          contactList={contactList}
-          isEditing={isEditing}
-          setIsEditing={setIsEditing}
-          setSelectedContact={setSelectedContact}
-          setFormVisible={setFormVisible}
+          handleDeleteContact={handleDeleteContact}
+          handleEditContact={handleEditContact}
+          {...props}
         />
       )) : null}
     </Card.Group>

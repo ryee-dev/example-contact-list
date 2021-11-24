@@ -6,8 +6,15 @@ import { EditContactForm } from '../../components';
 const StyledCard = styled(Card)`
   cursor: pointer;
   transition: all 0.2s ease-in-out;
+  min-width: 212px;
 
-  .content {
+  .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .card-content {
     position: relative;
     z-index: 1;
   }
@@ -16,6 +23,7 @@ const StyledCard = styled(Card)`
     position: absolute;
     top: 0;
     right: 0;
+    //margin: -1rem -1rem 0 0;
     padding: 1rem;
     z-index: 2;
   }
@@ -44,26 +52,35 @@ const StyledCard = styled(Card)`
 `;
 
 const ContactDetails = (props) => {
-  const { contact, setContactList, contactList, isEditing, setIsEditing, setSelectedContact, setFormVisible } = props;
+  const { contact, isEditing, handleDeleteContact, handleEditContact, selectedContact } = props;
   // const [contactDetails, setContactDetails] = React.useState(null);
   const [showDetails, setShowDetails] = React.useState(false);
+  // const [editedContact, setEditedContact] = React.useState(null);
   
-  const handleDeleteContact = (id) => {
-    setContactList(contactList.filter(contact => contact.id !== id));
-  };
+  // const handleDeleteContact = (id) => {
+  //   setContactList(contactList.filter(contact => contact.id !== id));
+  // };
+  //
+  // const handleEditContact = (contact) => {
+  //   setIsEditing(true);
+  //   setFormVisible(true);
+  //   setSelectedContact(contact);
+  // };
   
-  const handleEditContact = (contact) => {
-    setIsEditing(true);
-    setFormVisible(true);
-    setSelectedContact(contact);
-  };
+  // const handleFavorite
   
   return (
     <>
       <StyledCard raised={showDetails}>
-        <Rating className="favorite" icon="heart" defaultRating={0} maxRating={1} />
+        <Rating
+          className="favorite"
+          icon="heart"
+          defaultRating={contact.favorited ? 1 : 0}
+          maxRating={1}
+          // onRate={set}
+        />
         {showDetails ?
-          <Card.Content className="content" onClick={() => setShowDetails(!showDetails)}>
+          <Card.Content className="card-content" onClick={() => setShowDetails(!showDetails)}>
             <Card.Header>{contact.lastName}, {contact.firstName}</Card.Header>
             <Card.Meta>{contact.address}</Card.Meta>
             <Card.Meta>{contact.city}, {contact.state}, {contact.zip}</Card.Meta>
@@ -71,16 +88,20 @@ const ContactDetails = (props) => {
             <Card.Description>{contact.email}</Card.Description>
             <Icon.Group className="icons-wrapper">
               <Icon onClick={() => handleDeleteContact(contact.id)} className="card-icon" name="remove user" color="red" />
-              <Icon onClick={() => handleEditContact(contact)} className="card-icon" name="edit" color="orange" />
+              <Icon onClick={() => handleEditContact(contact.id, { ...contact })} className="card-icon" name="edit" color="orange" />
             </Icon.Group>
           </Card.Content> :
-          <Card.Content className="content" onClick={() => setShowDetails(!showDetails)}>
+          <Card.Content className="card-content" onClick={() => setShowDetails(!showDetails)}>
             <Card.Header>{contact.lastName}, {contact.firstName}</Card.Header>
             <Card.Meta>{contact.city}, {contact.state}</Card.Meta>
           </Card.Content>
         }
       </StyledCard>
-      {isEditing ? <EditContactForm contact={contact} /> : null}
+      {isEditing &&
+      <EditContactForm
+        {...props}
+        contact={contact}
+      />}
       
       {/*{showDetails ?*/}
       {/*  <StyledCard raised fluid onClick={() => setShowDetails(!showDetails)}>*/}

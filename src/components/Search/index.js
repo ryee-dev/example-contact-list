@@ -32,7 +32,6 @@ const Search = (props) => {
     if (query.length !== 0) {
       const results = contactList.filter((contact) => {
         const fullName = contact.firstName + contact.lastName;
-        
         return fullName.toLowerCase().includes(query.toLowerCase());
       });
       

@@ -92,7 +92,9 @@ function App() {
         searchedContacts={searchedContacts}
         isEditing={isEditing}
         setIsEditing={setIsEditing}
+        selectedContact={selectedContact}
         setSelectedContact={setSelectedContact}
+        formVisible={formVisible}
         setFormVisible={setFormVisible}
       />
     </AppWrapper>
